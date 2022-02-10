@@ -108,29 +108,27 @@ def login():
 # -----------------------------------------------------------------------
 
 # Listamos los 50 productos mas vendidos
-vendidos_50 = []
-sub_produc = []
-sub_produc_2 = []
 id_s = []
-cuenta = []
-for produc in lifestore_products:
-    sub_produc.append({'id':produc[0], 'name':produc[1]})
+ventas_total = []
 
-for idx, ventas in enumerate(lifestore_sales):
+for ventas in lifestore_sales:
     id_s.append(ventas[1])
-    
-for i in range(len(lifestore_products)):
-    cuenta.append({'id': i+1, 'Ventas':id_s.count(i+1)})
-    sub_produc[i]['Ventas'] = id_s.count(i+1)
 
 for idx, produc in enumerate(lifestore_products):
-    sub_produc_2.append({
-        'id' : produc[0],
-        'name' : produc[1], 
-        'Ventas' : id_s.count(idx+1)
+    ventas_total.append({
+        'id':produc[0],
+        'name':produc[1], 
+        'total':id_s.count(idx+1)
     })
 
-print(sub_produc_2)
+ventas_total = sorted(ventas_total, key=lambda x:x['total'], reverse=True)
+for i in range(len(ventas_total)):
+    print(ventas_total[i])
+
+print(len(ventas_total))
+
+
+
 # Listamos los 100 productos con mayores busquedas
 
 
