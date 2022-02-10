@@ -23,19 +23,21 @@ lifestore_products = [id_product, name, price, category, stock]
 
 ------------------------------------------------------------
 -------------------------NOTA-------------------------------
--- Por costumbre, y para que el codigo pueda ser plasmado --
------ de manera correcta en LATEX, este programa sera ------
---------------- comentado sin acentos ----------------------  
+---- Por buena practica, y para que el codigo pueda ser ----
+---- plasmadode manera correcta en LATEX, este programa ----
+------------- sera comentado sin acentos--------------------  
 ------------------------------------------------------------
 
 """
 
-# Importamos las librerias
+# Importamos la Base de datos
 from lifestore_file import lifestore_products, lifestore_sales, lifestore_searches
+#
 
 
-
-# Primera inspeccion de la Base de datos (BD)
+# -----------------------------------------------------------------------
+# -----Primera inspeccion de la estructura de la Base de datos (BD)------
+# -----------------------------------------------------------------------
 print('-'*100)
 print('Estructura de la BD de búsqueda:\n')
 for i in range(5):
@@ -59,6 +61,52 @@ for i in range(5):
          )
 
 
+# -----------------------------------------------------------------------
+# ----------------------------Login--------------------------------------
+# -----------------------------------------------------------------------
+def login():
+    '''
+    '''
+    print(' |---------------------------------------------------|\n',
+          '|-----------------LOGIN-----------------------------|\n',
+          '|---------------------------------------------------|\n')
+
+    user_C = 'Oscar' 
+    pass_C = 'asdfgh'
+    Intentos = 0
+    
+    while True:
+        print('*'*25)
+        print('Ingrese sus credenciales: \n')
+        user  = input('Nombre de usuario: ')
+        passw = input('Contraseña: ')
+
+        Intentos += 1
+
+        if Intentos == 5:
+            print('*'*25)
+            print('Permiso denegado.')
+            print('Interrumpiendo ejecucion del programa')
+            print('*'*25)
+            exit()
+        if user == user_C and passw == pass_C:
+            print()
+            print('*'*25)
+            print('SUS DATOS SON CORRECTOS.')
+            print('*'*25, '\n')
+            input('Presione "Enter" para continuar:')
+            break
+        else:
+            print('Intento fallido No. {} \n \n'.format(Intentos))
+        
+# Llamamos a la funcion
+login()
+# -----------------------------------------------------------------------
+# 
+# -----------------------------------------------------------------------
 
 
 
+# -----------------------------------------------------------------------
+# 
+# -----------------------------------------------------------------------
