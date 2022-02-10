@@ -100,10 +100,38 @@ def login():
             print('Intento fallido No. {} \n \n'.format(Intentos))
         
 # Llamamos a la funcion
-login()
+#login()
+
+
 # -----------------------------------------------------------------------
-# 
+# ------------------- Productos mas vendidos-----------------------------
 # -----------------------------------------------------------------------
+
+# Listamos los 50 productos mas vendidos
+vendidos_50 = []
+sub_produc = []
+sub_produc_2 = []
+id_s = []
+cuenta = []
+for produc in lifestore_products:
+    sub_produc.append({'id':produc[0], 'name':produc[1]})
+
+for idx, ventas in enumerate(lifestore_sales):
+    id_s.append(ventas[1])
+    
+for i in range(len(lifestore_products)):
+    cuenta.append({'id': i+1, 'Ventas':id_s.count(i+1)})
+    sub_produc[i]['Ventas'] = id_s.count(i+1)
+
+for idx, produc in enumerate(lifestore_products):
+    sub_produc_2.append({
+        'id' : produc[0],
+        'name' : produc[1], 
+        'Ventas' : id_s.count(idx+1)
+    })
+
+print(sub_produc_2)
+# Listamos los 100 productos con mayores busquedas
 
 
 
