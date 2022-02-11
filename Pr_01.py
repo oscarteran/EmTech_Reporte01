@@ -122,12 +122,33 @@ for idx, produc in enumerate(lifestore_products):
     })
 
 ventas_total = sorted(ventas_total, key=lambda x:x['total'], reverse=True)
-for i in range(len(ventas_total)):
-    print(ventas_total[i])
 
-print(len(ventas_total))
+# 50 articulos mas vendidos
+top_50 = ventas_total[:50]
+
+# 50 artículos menos vendidos
+ventas_total_as = ventas_total[::-1]
+top_50_menos = ventas_total_as[:50]
+
+# Impresion de los primeros y ultimos 5 productos
+print('-------------------------------------------------')
+print('-----------Productos mas vendidos----------------')
+print('-------------------------------------------------')
+for i in range(5):
+    print(
+        ' Ventas  : ', top_50[i]['total'], '\n',
+        'Producto: ', top_50[i]['name'], '\n', 
+    )
 
 
+print('-------------------------------------------------')
+print('----------Productos menos vendidos---------------')
+print('-------------------------------------------------')
+for i in range(5):
+    print(
+        ' Ventas  : ', top_50_menos[i]['total'], '\n',
+        'Producto: ', top_50_menos[i]['name'], '\n', 
+    )
 
 # Listamos los 100 productos con mayores busquedas
 
