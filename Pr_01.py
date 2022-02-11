@@ -126,11 +126,8 @@ ventas_total = sorted(ventas_total, key=lambda x:x['total'], reverse=True)
 # 50 articulos mas vendidos
 top_50 = ventas_total[:50]
 
-# 50 artículos menos vendidos
-ventas_total_as = ventas_total[::-1]
-top_50_menos = ventas_total_as[:50]
 
-# Impresion de los primeros y ultimos 5 productos
+# Impresion de los primeros 5 productos
 print('-------------------------------------------------')
 print('-----------Productos mas vendidos----------------')
 print('-------------------------------------------------')
@@ -141,16 +138,54 @@ for i in range(5):
     )
 
 
+# Productos mas buscados
+_ids = []
+busquedas_t = []
+
+for busq in lifestore_searches:
+    _ids.append(busq[1])
+
+for produc in lifestore_products:
+    busquedas_t.append(
+        {'id':produc[0],
+         'Name':produc[1],
+         'Busquedas':_ids.count(produc[0])
+         }
+    )
+
+busquedas_total = sorted(busquedas_t, key=lambda x:x['Busquedas'], reverse=True)
+
+# Impresion de los primeros 5 productos
 print('-------------------------------------------------')
-print('----------Productos menos vendidos---------------')
+print('-----------Productos mas buscados----------------')
 print('-------------------------------------------------')
 for i in range(5):
     print(
-        ' Ventas  : ', top_50_menos[i]['total'], '\n',
-        'Producto: ', top_50_menos[i]['name'], '\n', 
+        ' Busquedas: ', busquedas_total[i]['Busquedas'], '\n',
+        'Producto: ', busquedas_total[i]['Name'], '\n', 
     )
 
-# Listamos los 100 productos con mayores busquedas
+
+
+# # 50 artículos menos vendidos
+# ventas_total_as = ventas_total[::-1]
+# top_50_menos = ventas_total_as[:50]
+
+
+# print('-------------------------------------------------')
+# print('----------Productos menos vendidos---------------')
+# print('-------------------------------------------------')
+# for i in range(5):
+#     print(
+#         ' Ventas  : ', top_50_menos[i]['total'], '\n',
+#         'Producto: ', top_50_menos[i]['name'], '\n', 
+#     )
+
+
+
+# -----------------------------------------------------------------------
+# ------------------- Productos mas buscados-----------------------------
+# -----------------------------------------------------------------------
 
 
 
