@@ -167,6 +167,37 @@ for i in range(5):
 
 
 
+# Separación por categoría
+categorias = [catego[3] for catego in lifestore_products]
+unique_categorias = list(dict.fromkeys(categorias))
+
+# 50 artículos menos vendidos
+ventas_total_as = ventas_total[::-1]
+top_50_menos = ventas_total_as[:50]
+
+top_50_menos_categoria = {
+    'procesadores'     :[],
+    'tarjetas de video':[], 
+    'tarjetas madre'   :[], 
+    'discos duros'     :[], 
+    'memorias usb'     :[], 
+    'pantallas'        :[], 
+    'bocinas'          :[], 
+    'audifonos'        :[]
+}
+
+for name_ventas in top_50_menos:
+    for name_produc in lifestore_products:
+        if name_ventas['name'] == name_produc[1]:
+            top_50_menos_categoria[name_produc[3]].append([name_ventas['name'], name_ventas['total']])
+
+
+
+
+
+
+
+
 # # 50 artículos menos vendidos
 # ventas_total_as = ventas_total[::-1]
 # top_50_menos = ventas_total_as[:50]
