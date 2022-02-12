@@ -104,7 +104,7 @@ def login():
 
 
 # -----------------------------------------------------------------------
-# ------------------- Productos mas vendidos-----------------------------
+# ------------------- Productos mas vendidos ----------------------------
 # -----------------------------------------------------------------------
 
 # Listamos los 50 productos mas vendidos
@@ -138,7 +138,9 @@ for i in range(5):
     )
 
 
-# Productos mas buscados
+# -----------------------------------------------------------------------
+# ------------------- Productos mas buscados ----------------------------
+# -----------------------------------------------------------------------
 _ids = []
 busquedas_t = []
 
@@ -167,57 +169,89 @@ for i in range(5):
 
 
 
-# Separación por categoría
+# -----------------------------------------------------------------------
+# --------------- 50 menores ventas por categoria -----------------------
+# -----------------------------------------------------------------------
 categorias = [catego[3] for catego in lifestore_products]
 unique_categorias = list(dict.fromkeys(categorias))
 
-# 50 artículos menos vendidos
-ventas_total_as = ventas_total[::-1]
-top_50_menos = ventas_total_as[:50]
 
-top_50_menos_categoria = {
-    'procesadores'     :[],
+categorias = {
+     'procesadores'     :[],
     'tarjetas de video':[], 
     'tarjetas madre'   :[], 
     'discos duros'     :[], 
     'memorias usb'     :[], 
     'pantallas'        :[], 
     'bocinas'          :[], 
-    'audifonos'        :[]
+    'audifonos'        :[]   
 }
 
-for name_ventas in top_50_menos:
-    for name_produc in lifestore_products:
-        if name_ventas['name'] == name_produc[1]:
-            top_50_menos_categoria[name_produc[3]].append([name_ventas['name'], name_ventas['total']])
+# Invertimos el orden de venta
+ventas_total_50 = ventas_total[:50]
+ventas_total_i = ventas_total_50[::-1]
+
+# Organizamos por categoria
+for ventas in ventas_total_i:
+    for productos in lifestore_products:
+        if ventas['name'] == productos[1]:
+            categorias[productos[3]].append([ventas['name'], ventas['total']])
 
 
-
-
-
-
-
-
-# # 50 artículos menos vendidos
-# ventas_total_as = ventas_total[::-1]
-# top_50_menos = ventas_total_as[:50]
-
-
-# print('-------------------------------------------------')
-# print('----------Productos menos vendidos---------------')
-# print('-------------------------------------------------')
-# for i in range(5):
-#     print(
-#         ' Ventas  : ', top_50_menos[i]['total'], '\n',
-#         'Producto: ', top_50_menos[i]['name'], '\n', 
-#     )
-
-
+# Impresion de los primeros 5 productos por categoria
+print('-------------------------------------------------')
+print('---------Productos con menos ventas--------------')
+print('-------------------------------------------------')
+for name in categorias:
+    print('CATEGORIA: ', name)
+    for i in range(len(categorias[name])):
+        if i > 5:
+            break
+        else:
+            print(' Nombre: ', categorias[name][i][0], '\n',
+                  'Ventas:  ', categorias[name][i][1] )
+    print()        
 
 # -----------------------------------------------------------------------
-# ------------------- Productos mas buscados-----------------------------
+# ------------- 100 con menores busquedas por categoria------------------
 # -----------------------------------------------------------------------
+categorias_busqueda = {
+     'procesadores'     :[],
+    'tarjetas de video':[], 
+    'tarjetas madre'   :[], 
+    'discos duros'     :[], 
+    'memorias usb'     :[], 
+    'pantallas'        :[], 
+    'bocinas'          :[], 
+    'audifonos'        :[]   
+}
 
+
+# Invertimos la lista de busqueda
+busquedas_total_i = busquedas_total[::-1]
+
+# Organizamos por categoria
+for busqueda in busquedas_total_i:
+    for productos in lifestore_products:
+        if busqueda['Name'] == productos[1]:
+            categorias_busqueda[productos[3]].append(
+                [busqueda['Name'], 
+                busqueda['Busquedas']])
+
+
+# Impresion de los primeros 5 productos por categoria
+print('-------------------------------------------------')
+print('--------Productos con menos busquedas------------')
+print('-------------------------------------------------')
+for name in categorias_busqueda:
+    print('CATEGORIA: ', name)
+    for i in range(len(categorias_busqueda[name])):
+        if i > 5:
+            break
+        else:
+            print(' Nombre:   ', categorias_busqueda[name][i][0], '\n',
+                  'Busquedas: ', categorias_busqueda[name][i][1] )
+    print() 
 
 
 # -----------------------------------------------------------------------
