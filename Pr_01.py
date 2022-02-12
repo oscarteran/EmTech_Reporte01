@@ -121,6 +121,7 @@ for idx, produc in enumerate(lifestore_products):
         'total':id_s.count(idx+1)
     })
 
+# Ordenamos a partir de una llave
 ventas_total = sorted(ventas_total, key=lambda x:x['total'], reverse=True)
 
 # 50 articulos mas vendidos
@@ -255,5 +256,62 @@ for name in categorias_busqueda:
 
 
 # -----------------------------------------------------------------------
-# 
+# ------------Productos por reseña en el servicio------------------------
 # -----------------------------------------------------------------------
+# Creamos las listas para almacenar
+# cali_completa = []
+# top_20_cali = []
+# botton_20_cali = []
+
+# calificaciones = sorted(lifestore_sales, key=lambda x:x[2], reverse=True)
+# calificaciones_i = calificaciones[::-1]
+
+# id_en_ventas = lifestore_sales[1]
+
+# for venta in lifestore_sales:
+#     for producto in lifestore_products:
+#         if venta[1] == producto[0]:
+#             cali_completa.append([
+#                 venta[1],producto[1], venta[2], 
+#             ])
+
+cali_total = []
+for id in lifestore_sales:
+    cali_total.append(id[1])
+
+cali_unicas = list(dict.fromkeys(cali_total))
+cali_unicas_r = []
+for i in range(len(cali_unicas)):
+    cali_unicas_r.append([cali_unicas[i], cali_total.count(cali_unicas[i])])
+
+cali_unicas_nombre = []
+for id in cali_unicas:
+    for producto in lifestore_products:
+            if id == producto[0]:
+                cali_unicas_nombre.append(producto[1])
+
+print(cali_unicas_r)
+
+
+# -----------------------------------------------------------------------
+# ----------Ingresos y ventas en ventanas de tiempo----------------------
+# -----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
