@@ -323,16 +323,16 @@ top_20_valores = valoraciones_finales_i[:20]
 botton_20_valores = valoraciones_finales[:20]
 
 print('-------------------------------------------------')
-print('-----------20 mejores calificados----------------')
+print('-----------10 mejores calificados----------------')
 print('-------------------------------------------------')
-for i in range(20):
+for i in range(10):
     print(' Producto:  ', top_20_valores[i][0], '\n',
           'Valoracion: ', top_20_valores[i][1] )
 
 print('-------------------------------------------------')
-print('-----------20 peores calificados----------------')
+print('-----------10 peores calificados-----------------')
 print('-------------------------------------------------')
-for i in range(20):
+for i in range(10):
     print(' Producto:  ', botton_20_valores[i][0], '\n',
           'Valoracion: ', botton_20_valores[i][1] )
 
@@ -467,7 +467,7 @@ plt.title('Ingresos por mes', fontsize=16, c='k')
 plt.xticks(rotation = 45)
 plt.ylim(0, 225000)
 plt.savefig('Ingresos_Por_Mes.jpg', dpi=900)
-plt.show()
+#plt.show()
 
 
 # Ingresos promedios por mes
@@ -482,7 +482,7 @@ plt.title('Ingresos promediados por mes', fontsize=18, c='k')
 plt.xticks(rotation = 45)
 plt.ylim(0, 9500)
 plt.savefig('Ingresos_Promedio.jpg', dpi=900)
-plt.show()
+#plt.show()
 
 
 # Numero de ventas por mes
@@ -497,4 +497,4 @@ plt.title('Número de ventas por mes', fontsize=18, c='k')
 plt.xticks(rotation = 45)
 plt.ylim(0, 80)
 plt.savefig('Tickets.jpg', dpi=900)
-plt.show()
+#plt.show()
