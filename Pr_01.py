@@ -396,22 +396,95 @@ for i in range(len(limites)):
     else:
         lista_meses[i].append(ingresos_ord[limites[i-1]:limites[i]])
 
+# Lista con los ingresos por mes
 ingresos_por_mes = []
-for i in range(len(limites)):
-    #aux = sum(lista_meses[i][0][0][-1])
-    #ingresos_por_mes.append(aux)
-    pass
-
-#for i in range(len(limites)):
-#    print(lista_meses[i][0][0][-1])
-#    print()
-
+for i in range(len(longitudes)):
+    if i == 1:
+        ingresos_por_mes.append(0)
+    aux = 0
+    for lon in range(longitudes[i]):
+        aux +=lista_meses[i][0][lon][-1]
+    ingresos_por_mes.append(aux)
 
 
+llaves_mes = ['Noviembre', 'Diciembre','Enero', 'Febrero', 'Marzo',
+              'Abril', 'Mayo', 'Junio', 'Julio',
+              'Agosto', 'Septiembre']
+
+# Creamos un diccionario
+# mes:ingreso
+ingresos_final = dict(zip(llaves_mes, ingresos_por_mes))
+
+for key, value in ingresos_final.items():
+    print(' Mes:    ', key, '\n', 
+          'Ingreso: ', value)
+    print()
+
+# Ventas promedio por mes
+promedios = []
+for i in range(len(longitudes)):
+    promedios.append(ingresos_por_mes[i]/longitudes[i])
+
+# Diccionario 
+# mes: promedio
+ingresos_promedios = dict(zip(llaves_mes, promedios))
+
+# Numero de ventas
+tickets = []
+for i in range(len(llaves_mes)):
+    if i == 1:
+        tickets.append(0)
+    else:
+        tickets.append(longitudes[i-1])
 
 
 
+# -----------------------------------------------------------------------
+# -------------------EXTRA: Visualizaciones------------------------------
+# -----------------------------------------------------------------------
+import matplotlib.pyplot as plt
+plt.style.use('Solarize_Light2')
 
 
+# Ingresos por mes
+plt.figure(figsize=(10,6))
+plt.plot(ingresos_final.keys(), ingresos_final.values())
+plt.fill_between(ingresos_final.keys(), ingresos_final.values(), alpha=0.5)
+for x, y in zip(ingresos_final.keys(), ingresos_final.values()):
+    plt.text(x, y, '$%.2f'%y, ha='center', va='bottom', fontsize=10.5)
+plt.xlabel('Mes de venta')
+plt.ylabel('Ventas totales [$]')
+plt.title('Ingresos por mes', fontsize=16, c='k')
+plt.xticks(rotation = 45)
+plt.ylim(0, 225000)
+plt.savefig('Ingresos_Por_Mes.jpg', dpi=900)
+plt.show()
 
 
+# Ingresos promedios por mes
+plt.figure(figsize=(10,6))
+plt.plot(ingresos_promedios.keys(), ingresos_promedios.values())
+plt.fill_between(ingresos_promedios.keys(), ingresos_promedios.values(), alpha=0.5)
+for x, y in zip(ingresos_promedios.keys(), ingresos_promedios.values()):
+    plt.text(x, y, '$%.2f'%y, ha='center', va='bottom', fontsize=10.5)
+plt.xlabel('Mes de venta')
+plt.ylabel('Ventas [$]')
+plt.title('Ingresos promediados por mes', fontsize=18, c='k')
+plt.xticks(rotation = 45)
+plt.ylim(0, 9500)
+plt.savefig('Ingresos_Promedio.jpg', dpi=900)
+plt.show()
+
+# Numero de ventas por mes
+plt.figure(figsize=(10,6))
+plt.plot(ingresos_final.keys(), tickets)
+plt.fill_between(ingresos_final.keys(), tickets, alpha=0.5)
+for x, y in zip(ingresos_final.keys(), tickets):
+    plt.text(x, y, '%.0f'%y, ha='center', va='bottom', fontsize=10.5)
+plt.xlabel('Mes de venta')
+plt.ylabel('Ventas [unidades]')
+plt.title('Número de ventas por mes', fontsize=18, c='k')
+plt.xticks(rotation = 45)
+plt.ylim(0, 80)
+plt.savefig('Tickets.jpg', dpi=900)
+plt.show()
