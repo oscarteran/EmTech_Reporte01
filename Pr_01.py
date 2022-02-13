@@ -298,10 +298,34 @@ for id in id_unico:
 # Valores promedios
 promedios = []
 for idx, lista in enumerate(lista_score):
-    aux = sum(lista)/repeticiones[idx][1]
+    aux = int(sum(lista)/repeticiones[idx][1])
     promedios.append(aux)
 
-#print(repeticiones)
+# Nombre, valoracion
+valoraciones_finales = dict(zip(ventas_unicas, promedios))
+
+# Ordenamos el diccionario
+valoraciones_finales = sorted(valoraciones_finales.items(), key=lambda x:x[1])
+valoraciones_finales_i = valoraciones_finales[::-1]
+
+
+top_20_valores = valoraciones_finales_i[:20]
+botton_20_valores = valoraciones_finales[:20]
+
+print('-------------------------------------------------')
+print('-----------20 mejores calificados----------------')
+print('-------------------------------------------------')
+for i in range(20):
+    print(' Producto:  ', top_20_valores[i][0], '\n',
+          'Valoracion: ', top_20_valores[i][1] )
+
+print('-------------------------------------------------')
+print('-----------20 peores calificados----------------')
+print('-------------------------------------------------')
+for i in range(20):
+    print(' Producto:  ', botton_20_valores[i][0], '\n',
+          'Valoracion: ', botton_20_valores[i][1] )
+
 # -----------------------------------------------------------------------
 # ----------Ingresos y ventas en ventanas de tiempo----------------------
 # -----------------------------------------------------------------------
