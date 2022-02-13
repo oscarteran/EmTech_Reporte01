@@ -31,6 +31,7 @@ lifestore_products = [id_product, name, price, category, stock]
 """
 
 # Importamos la Base de datos
+import enum
 from lifestore_file import lifestore_products, lifestore_sales, lifestore_searches
 #
 
@@ -329,15 +330,81 @@ for i in range(20):
 # -----------------------------------------------------------------------
 # ----------Ingresos y ventas en ventanas de tiempo----------------------
 # -----------------------------------------------------------------------
+# Total de ingresos y ventas promedio mensuales,
+# total anual y meses con más ventas al año
+
+# Importamos las librerias necesarias
+from datetime import datetime
+
+# Creamos una copia para trabajar
+lifestore_sales_copy = lifestore_sales.copy()
+
+# Cambiamos el tipo de dato
+for value in range(len(lifestore_sales_copy)):
+    lifestore_sales_copy[value][3] = datetime.strptime(lifestore_sales_copy[value][3], '%d/%m/%Y')
 
 
+# Nueva lista
+# id, nombre, fecha, precio
+ingresos = []
+for idx,lista in enumerate(lifestore_sales_copy):
+    for produc in lifestore_products:
+        if lista[1] == produc[0]:
+            ingresos.append([produc[0],
+                             produc[1], 
+                             lista[3],
+                             produc[2]
+            ])
 
+# Ordenamos en funcion de la fecha
+ingresos_ord = sorted(ingresos, key=lambda x:x[2])
 
+# Extraemos los meses de cada fecha de venta
+meses = []
+for i in range(len(ingresos_ord)):
+    meses.append(datetime.strftime(ingresos_ord[i][2],'%m'))
 
+# Creamos una lista con los meses sin repetir
+meses_unicos = list(dict.fromkeys(meses))
 
+# mes, # de ventas
+longitudes = []
+for mes in meses_unicos:
+    longitudes.append(meses.count(mes))
 
+# Definimos una lista para los límites 
+limites = []
+for i in range(len(longitudes)):
+    if i == 0:
+        limites.append(longitudes[i])
+    else:
+        limites.append(longitudes[i]+limites[i-1])
 
+'''
+ Dado que tenemos las longitudes y los límites,
+ podemos separar la lista original por mes
+ Lista de listas que contienen los meses de diciembre a septiembre
+ Cada lista interna tiene la forma:
+      id, nombre, fecha, precio
+'''    
 
+lista_meses = [[], [], [], [], [], [], [], [], [], []]
+
+for i in range(len(limites)):
+    if i == 0:
+        lista_meses[i].append(ingresos_ord[0:limites[i]]) 
+    else:
+        lista_meses[i].append(ingresos_ord[limites[i-1]:limites[i]])
+
+ingresos_por_mes = []
+for i in range(len(limites)):
+    #aux = sum(lista_meses[i][0][0][-1])
+    #ingresos_por_mes.append(aux)
+    pass
+
+#for i in range(len(limites)):
+#    print(lista_meses[i][0][0][-1])
+#    print()
 
 
 
