@@ -256,43 +256,52 @@ for name in categorias_busqueda:
 
 
 # -----------------------------------------------------------------------
-# ------------Productos por reseña en el servicio------------------------
+# ----------Productos por calificacion en el servicio--------------------
 # -----------------------------------------------------------------------
-# Creamos las listas para almacenar
-# cali_completa = []
-# top_20_cali = []
-# botton_20_cali = []
+# id, Nombre, Calificacion
+valoraciones = []
+for ventas in lifestore_sales:
+    for produ in lifestore_products:
+        if ventas[1] == produ[0]:
+            valoraciones.append([ventas[1], produ[1], ventas[2]])
 
-# calificaciones = sorted(lifestore_sales, key=lambda x:x[2], reverse=True)
-# calificaciones_i = calificaciones[::-1]
+# id 
+id_produc = []
+for i in range(len(valoraciones)):
+    id_produc.append(valoraciones[i][0])
 
-# id_en_ventas = lifestore_sales[1]
+# Nombres
+ventas_nombres = []
+for i in range(len(valoraciones)):
+    ventas_nombres.append(valoraciones[i][1])
 
-# for venta in lifestore_sales:
-#     for producto in lifestore_products:
-#         if venta[1] == producto[0]:
-#             cali_completa.append([
-#                 venta[1],producto[1], venta[2], 
-#             ])
+# id unico
+id_unico = list(dict.fromkeys(id_produc))
 
-cali_total = []
-for id in lifestore_sales:
-    cali_total.append(id[1])
+# Nombres unicos
+ventas_unicas = list(dict.fromkeys(ventas_nombres))
 
-cali_unicas = list(dict.fromkeys(cali_total))
-cali_unicas_r = []
-for i in range(len(cali_unicas)):
-    cali_unicas_r.append([cali_unicas[i], cali_total.count(cali_unicas[i])])
+# Nombres, # de valoraciones
+repeticiones = []
+for repe in ventas_unicas:
+    repeticiones.append([repe, ventas_nombres.count(repe)])
 
-cali_unicas_nombre = []
-for id in cali_unicas:
-    for producto in lifestore_products:
-            if id == producto[0]:
-                cali_unicas_nombre.append(producto[1])
+# Lista de listas de valoraciones
+lista_score = []
+for id in id_unico:
+    aux = []
+    for ventas in lifestore_sales:
+        if ventas[1] == id:
+            aux.append(ventas[2])
+    lista_score.append(aux)
 
-print(cali_unicas_r)
+# Valores promedios
+promedios = []
+for idx, lista in enumerate(lista_score):
+    aux = sum(lista)/repeticiones[idx][1]
+    promedios.append(aux)
 
-
+#print(repeticiones)
 # -----------------------------------------------------------------------
 # ----------Ingresos y ventas en ventanas de tiempo----------------------
 # -----------------------------------------------------------------------
