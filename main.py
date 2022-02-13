@@ -31,9 +31,8 @@ lifestore_products = [id_product, name, price, category, stock]
 """
 
 # Importamos la Base de datos
-import enum
 from lifestore_file import lifestore_products, lifestore_sales, lifestore_searches
-#
+
 
 
 # -----------------------------------------------------------------------
@@ -67,6 +66,9 @@ for i in range(5):
 # -----------------------------------------------------------------------
 def login():
     '''
+    Esta función permite correr el resto del programa en 
+    caso que el acceso sea el correcto.
+    En caso contrario, detendrá toda la ejecución.
     '''
     print(' |---------------------------------------------------|\n',
           '|-----------------LOGIN-----------------------------|\n',
@@ -101,7 +103,7 @@ def login():
             print('Intento fallido No. {} \n \n'.format(Intentos))
         
 # Llamamos a la funcion
-#login()
+login()
 
 
 # -----------------------------------------------------------------------
@@ -112,9 +114,11 @@ def login():
 id_s = []
 ventas_total = []
 
+# id
 for ventas in lifestore_sales:
     id_s.append(ventas[1])
 
+# id, nombre, numero de ventas
 for idx, produc in enumerate(lifestore_products):
     ventas_total.append({
         'id':produc[0],
@@ -146,9 +150,11 @@ for i in range(5):
 _ids = []
 busquedas_t = []
 
+# id
 for busq in lifestore_searches:
     _ids.append(busq[1])
 
+# id, nombre, numero de busquedas
 for produc in lifestore_products:
     busquedas_t.append(
         {'id':produc[0],
@@ -174,6 +180,9 @@ for i in range(5):
 # -----------------------------------------------------------------------
 # --------------- 50 menores ventas por categoria -----------------------
 # -----------------------------------------------------------------------
+
+# Usamos compresion de listas
+# categorias
 categorias = [catego[3] for catego in lifestore_products]
 unique_categorias = list(dict.fromkeys(categorias))
 
@@ -474,6 +483,7 @@ plt.xticks(rotation = 45)
 plt.ylim(0, 9500)
 plt.savefig('Ingresos_Promedio.jpg', dpi=900)
 plt.show()
+
 
 # Numero de ventas por mes
 plt.figure(figsize=(10,6))
