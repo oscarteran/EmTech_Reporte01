@@ -424,19 +424,60 @@ llaves_mes = ['Noviembre', 'Diciembre','Enero', 'Febrero', 'Marzo',
 # mes:ingreso
 ingresos_final = dict(zip(llaves_mes, ingresos_por_mes))
 
+print('-------------------------------------------------')
+print('--------------Ingresos por mes-------------------')
+print('-------------------------------------------------')
 for key, value in ingresos_final.items():
     print(' Mes:    ', key, '\n', 
           'Ingreso: ', value)
-    print()
+
+
+# Ingresos totales
+print('-------------------------------------------------')
+print('--------------Ingresos totales-------------------')
+print('-------------------------------------------------')
+print('Ingresos totales:', sum(ingresos_por_mes))
+
 
 # Ventas promedio por mes
 promedios = []
 for i in range(len(longitudes)):
     promedios.append(ingresos_por_mes[i]/longitudes[i])
 
+
 # Diccionario 
 # mes: promedio
 ingresos_promedios = dict(zip(llaves_mes, promedios))
+
+
+print('-------------------------------------------------')
+print('-------------Ingresos promedio-------------------')
+print('-------------------------------------------------')
+for key, value in ingresos_promedios.items():
+    print(' Mes:    ', key, '\n', 
+          'Ingreso: ', value)
+
+# Año 2019
+print('-------------------------------------------------')
+print('----------------Ingresos 2019--------------------')
+print('-------------------------------------------------')
+print('Ingreso en el 2019:', 4209)
+
+# Año 2020
+print('-------------------------------------------------')
+print('----------------Ingresos 2020--------------------')
+print('-------------------------------------------------')
+print('Ingreso en el 2020:', sum(ingresos_por_mes) - 4209)
+
+# Top 3 meses en venta
+meses_ordenados = sorted(ingresos_final.items(), key=lambda x:x[1], reverse=True)
+
+print('-------------------------------------------------')
+print('-----------------Top 3 meses---------------------')
+print('-------------------------------------------------')
+for i in range(3):
+    print(' Mes:   ', meses_ordenados[i][0], '\n',
+          'Ingreso:', meses_ordenados[i][1])
 
 # Numero de ventas
 tickets = []
@@ -446,6 +487,14 @@ for i in range(len(llaves_mes)):
     else:
         tickets.append(longitudes[i-1])
 
+
+# Stock
+produc_copy = lifestore_products.copy()
+stock = []
+for i in lifestore_products:
+    stock.append([i[1], i[-1]])
+
+stock_order = sorted(stock, key=lambda x:x[1], reverse=True)
 
 
 # -----------------------------------------------------------------------
@@ -467,7 +516,7 @@ plt.title('Ingresos por mes', fontsize=16, c='k')
 plt.xticks(rotation = 45)
 plt.ylim(0, 225000)
 plt.savefig('Ingresos_Por_Mes.jpg', dpi=900)
-#plt.show()
+plt.show()
 
 
 # Ingresos promedios por mes
@@ -482,7 +531,7 @@ plt.title('Ingresos promediados por mes', fontsize=18, c='k')
 plt.xticks(rotation = 45)
 plt.ylim(0, 9500)
 plt.savefig('Ingresos_Promedio.jpg', dpi=900)
-#plt.show()
+plt.show()
 
 
 # Numero de ventas por mes
@@ -497,4 +546,4 @@ plt.title('Número de ventas por mes', fontsize=18, c='k')
 plt.xticks(rotation = 45)
 plt.ylim(0, 80)
 plt.savefig('Tickets.jpg', dpi=900)
-#plt.show()
+plt.show()
